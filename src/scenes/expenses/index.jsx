@@ -79,6 +79,7 @@ const Expenses = () => {
       category: expense.category,
       title: expense.title,
       amount: expense.amount,
+      freq_per_year: expense.frequency,
       timestamp: expense.timestamp,
     };
     try {
@@ -217,7 +218,7 @@ const Expenses = () => {
       align: "left",
     },
     {
-      field: "freqPerYr",
+      field: "frequency",
       headerName: "Frequency per Year",
       flex: 1,
       headerAlign: "left",
@@ -328,7 +329,7 @@ const Expenses = () => {
             onSubmit={handleExpenseSubmit}
             style={{
               width: "100%",
-              height: "45vh",
+              height: "55vh",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
@@ -367,6 +368,7 @@ const Expenses = () => {
                     Enter your Expense Name:
                   </Typography>
                   <FormSample
+                  req={true}
                     id="title"
                     label="Expense Name"
                     height="2.5rem"
@@ -413,6 +415,7 @@ const Expenses = () => {
                     Enter your Expense amount:
                   </Typography>
                   <FormSample
+                  req={true}
                     id="amount"
                     label="Expense Amount"
                     height="2.5rem"
@@ -440,6 +443,53 @@ const Expenses = () => {
                     value={expense.amount}
                     onChange={setExpense}
                     name="amount"
+                    margin="0"
+                  />
+                </ContainerStyles>
+                <ContainerStyles
+                  sx={{
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontSize: "1.5rem",
+                      margin: "20px 0",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Enter your Expense frequency per year:
+                  </Typography>
+                  <FormSample
+                  // req={true}
+                    id="amount"
+                    label="Expense periodicity"
+                    height="2.5rem"
+                    width="25rem"
+                    type="number"
+                    generalcolor={"#fff"}
+                    fieldsetbgcolor={"transparent"}
+                    fieldsetborder={"2px solid white"}
+                    fieldsetborderradius={"5px"}
+                    InputLabelProps={{
+                      style: {
+                        color: "#ffffff",
+                        fontStyle: "montserrat",
+                        fontSize: "0.8rem",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        color: "#ffffff",
+                        fontStyle: "montserrat",
+                        fontSize: "1rem",
+                      },
+                    }}
+                    value={expense.frequency}
+                    onChange={setExpense}
+                    name="frequency"
                     margin="0"
                   />
                 </ContainerStyles>
@@ -547,6 +597,7 @@ const Expenses = () => {
                     Enter Date and Time of Purchase:
                   </Typography>
                   <FormSample
+                  req={true}
                     id="timestamp"
                     label=""
                     height="2.5rem"
@@ -661,6 +712,7 @@ const Expenses = () => {
                     Enter your Income Name:
                   </Typography>
                   <FormSample
+                  req={true}
                     id="title"
                     label="Income Name"
                     height="2.5rem"
@@ -707,6 +759,7 @@ const Expenses = () => {
                     Enter your Income amount:
                   </Typography>
                   <FormSample
+                  req={true}
                     id="amount"
                     label="Income Amount"
                     height="2.5rem"
@@ -841,6 +894,7 @@ const Expenses = () => {
                     Enter Date and Time until Stable income:
                   </Typography>
                   <FormSample
+                  req={true}
                     id="timestamp"
                     label=""
                     height="2.5rem"
