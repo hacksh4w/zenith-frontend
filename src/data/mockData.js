@@ -1166,20 +1166,45 @@ export const mockGeographyData = [
 export const mockDataExpenses = [
   {
     id: 1,
-    label: "date",
-    value: 100,
-    type: "groceries",
+    title: "Vegetables",
+    amount: 100,
+    timestamp: "2023-09-23T14:30:00.123Z",
     freqPerYr: 2,
-    date: "2019/03/08",
-    bill: "https://www.google.com",
+    category: "Rent",
   },
   {
     id: 2,
-    label: "date",
-    value: 100,
-    type: "food",
+    title: "date",
+    amount: 100,
+    timestamp: "2023-09-23T14:30:00.123Z",
     freqPerYr: 2,
-    date: "2020/03/08",
-    bill: "https://www.google.com",
+    category: "Rent",
+  },
+  {
+    id: 3,
+    title: "date",
+    amount: 100,
+    timestamp: "2023-09-23T14:30:00.123Z",
+    freqPerYr: 2,
+    category: "Rent",
+  },
+];
+
+export const mockDataGoals = [
+  {
+    id: 1,
+    priority: 1,
+    total_amount: 10000,
+    title: "Mechanical Keyboard",
+    completed_amount: 0,
+    target_date: "2021/03/08",
+  },
+  {
+    id: 3,
+    priority: 3,
+    total_amount: 14999,
+    title: "Electric scooter",
+    completed_amount: 0,
+    target_date: "2021/03/08",
   },
 ];
