@@ -7,7 +7,9 @@ import ContextApi from "./contexts/ContextApi";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <ContextApi>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ContextApi>
   </React.StrictMode>
 );
