@@ -9,6 +9,7 @@ const FormSample = ({
   type,
   generalcolor,
   max,
+  req,
   fieldsetbgcolor,
   fieldsetborder,
   fieldsetborderradius,
@@ -33,7 +34,7 @@ const FormSample = ({
       <TextField
         id={id}
         label={label}
-        required
+        required={req}
         type={type}
         sx={{
           height: { height },
