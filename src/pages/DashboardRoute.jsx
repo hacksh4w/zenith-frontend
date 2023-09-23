@@ -33,8 +33,8 @@ const DashboardRoute = () => {
               <Route path="/invoices" element={<Invoices />} />
               <Route path="/form" element={<Form />} />
               <Route path="/bar" element={<Bar />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
+              <Route path="/expenseratio" element={<Pie />} />
+              <Route path="/income" element={<Line />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/goals" element={<Goals />} />
             </Routes>
