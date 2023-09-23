@@ -13,7 +13,7 @@ import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import CustomModal from "../../components/CustomModal";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import Plus from "../../utils/Plus";
 import { ContainerStyles } from "../../../palette";
 import FormSample from "../../components/FormSample";
@@ -137,6 +137,7 @@ const Expenses = () => {
     stability:'',
     endsOn: "",
   });
+  const [data, setData] = useState(null)
   function handleType(e, v, r) {
     const name = ref0.current.getAttribute('name');
     setExpense((preValue) => {
@@ -156,6 +157,23 @@ const Expenses = () => {
       }
     })
   }
+  async function handleIncomingData(){
+    try{
+      const response = await axios.get(`${import.meta.env.VITE_APP_SERVERURL}/api/expense`,{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken.token}`,
+        }
+      })
+      console.log(response.data)
+      const temp = response.data
+    }catch(err){
+      console.log(err)
+    }
+  }
+  React.useEffect(()=>{
+    handleIncomingData()
+  },[handleIncomingData])
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
     {
