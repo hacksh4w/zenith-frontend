@@ -68,7 +68,8 @@ const ContainerStyles = styled(Box)({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  flexDirection:'column'
+  flexDirection:'column',
+  backgroundColor:'black.main'
 })
 const StyledTypography = styled(Typography)({
   display: 'flex',
