@@ -432,165 +432,57 @@ export const mockPieData = [
 
 export const mockLineData = [
   {
-    id: "japan",
+    id: "needs",
     color: tokens("dark").greenAccent[500],
     data: [
-      {
-        x: "plane",
-        y: 101,
-      },
-      {
-        x: "helicopter",
-        y: 75,
-      },
-      {
-        x: "boat",
-        y: 36,
-      },
-      {
-        x: "train",
-        y: 216,
-      },
-      {
-        x: "subway",
-        y: 35,
-      },
-      {
-        x: "bus",
-        y: 236,
-      },
-      {
-        x: "car",
-        y: 88,
-      },
-      {
-        x: "moto",
-        y: 232,
-      },
-      {
-        x: "bicycle",
-        y: 281,
-      },
-      {
-        x: "horse",
-        y: 1,
-      },
-      {
-        x: "skateboard",
-        y: 35,
-      },
-      {
-        x: "others",
-        y: 14,
-      },
+      { x: "Jan", y: 142 },
+      { x: "Feb", y: 289 },
+      { x: "Mar", y: 195 },
+      { x: "Apr", y: 421 },
+      { x: "May", y: 312 },
+      { x: "Jun", y: 226 },
+      { x: "Jul", y: 348 },
+      { x: "Aug", y: 454 },
+      { x: "Sep", y: 258 },
+      { x: "Oct", y: 491 },
+      { x: "Nov", y: 402 },
+      { x: "Dec", y: 576 },
     ],
   },
   {
-    id: "france",
+    id: "wants",
     color: tokens("dark").blueAccent[300],
     data: [
-      {
-        x: "plane",
-        y: 212,
-      },
-      {
-        x: "helicopter",
-        y: 190,
-      },
-      {
-        x: "boat",
-        y: 270,
-      },
-      {
-        x: "train",
-        y: 9,
-      },
-      {
-        x: "subway",
-        y: 75,
-      },
-      {
-        x: "bus",
-        y: 175,
-      },
-      {
-        x: "car",
-        y: 33,
-      },
-      {
-        x: "moto",
-        y: 189,
-      },
-      {
-        x: "bicycle",
-        y: 97,
-      },
-      {
-        x: "horse",
-        y: 87,
-      },
-      {
-        x: "skateboard",
-        y: 299,
-      },
-      {
-        x: "others",
-        y: 251,
-      },
+      { x: "Jan", y: 275 },
+      { x: "Feb", y: 531 },
+      { x: "Mar", y: 369 },
+      { x: "Apr", y: 812 },
+      { x: "May", y: 623 },
+      { x: "Jun", y: 438 },
+      { x: "Jul", y: 701 },
+      { x: "Aug", y: 911 },
+      { x: "Sep", y: 499 },
+      { x: "Oct", y: 785 },
+      { x: "Nov", y: 618 },
+      { x: "Dec", y: 1045 },
     ],
   },
   {
-    id: "us",
+    id: "savings",
     color: tokens("dark").redAccent[200],
     data: [
-      {
-        x: "plane",
-        y: 191,
-      },
-      {
-        x: "helicopter",
-        y: 136,
-      },
-      {
-        x: "boat",
-        y: 91,
-      },
-      {
-        x: "train",
-        y: 190,
-      },
-      {
-        x: "subway",
-        y: 211,
-      },
-      {
-        x: "bus",
-        y: 152,
-      },
-      {
-        x: "car",
-        y: 189,
-      },
-      {
-        x: "moto",
-        y: 152,
-      },
-      {
-        x: "bicycle",
-        y: 8,
-      },
-      {
-        x: "horse",
-        y: 197,
-      },
-      {
-        x: "skateboard",
-        y: 107,
-      },
-      {
-        x: "others",
-        y: 170,
-      },
+      { x: "Jan", y: 189 },
+      { x: "Feb", y: 387 },
+      { x: "Mar", y: 267 },
+      { x: "Apr", y: 584 },
+      { x: "May", y: 432 },
+      { x: "Jun", y: 312 },
+      { x: "Jul", y: 478 },
+      { x: "Aug", y: 622 },
+      { x: "Sep", y: 347 },
+      { x: "Oct", y: 685 },
+      { x: "Nov", y: 561 },
+      { x: "Dec", y: 812 },
     ],
   },
 ];
