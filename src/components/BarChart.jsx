@@ -1,11 +1,30 @@
-import { useTheme } from "@mui/material";
-import { ResponsiveBar } from "@nivo/bar";
-import { tokens } from "../theme";
-import { mockBarData as data } from "../data/mockData";
+import { useTheme } from "@mui/material"
+import { ResponsiveBar } from "@nivo/bar"
+import { tokens } from "../theme"
+import { mockBarData as data } from "../data/mockData"
 
 const BarChart = ({ isDashboard = false }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  const theme = useTheme()
+  const colors = tokens(theme.palette.mode)
+
+  const [categories, setCategories] = useState([])
+
+  const fetchCategories = async () => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_APP_SERVERURL}/api/categories`,
+      {
+        headers: {
+          Authorization: `Bearer ${getCookie("AuthToken")}`,
+        },
+      }
+    )
+
+    setCategories(response.data)
+  }
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
 
   return (
     <ResponsiveBar
@@ -39,7 +58,7 @@ const BarChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      keys={["hot dog", "burger", "sandwich", "kebab", "fries", "donut"]}
+      keys={categories.map((category) => category.name)}
       indexBy="country"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
@@ -121,10 +140,10 @@ const BarChart = ({ isDashboard = false }) => {
       ]}
       role="application"
       barAriaLabel={function (e) {
-        return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
+        return e.id + ": " + e.formattedValue + " in country: " + e.indexValue
       }}
     />
-  );
-};
+  )
+}
 
-export default BarChart;
+export default BarChart
