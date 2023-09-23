@@ -22,15 +22,15 @@ import { ThemeContext } from "../../contexts/ContextApi";
 import { setIn } from "formik";
 const Expenses = () => {
   const theme = useTheme();
-  const ref1 = useRef()
-  const ref0 = useRef()
-  const incomeOptions = ["Yes", "No",''];
+  const ref1 = useRef();
+  const ref0 = useRef();
+  const incomeOptions = ["Yes", "No", ""];
   const { setCookie, cookies } = useContext(ThemeContext);
   const authToken = cookies.AuthToken;
   const colors = tokens(theme.palette.mode);
   const [isExpenseOpen, setExpenseOpen] = useState(false);
   const [isIncomeOpen, setIncomeOpen] = useState(false);
-  const [categories, setCategories] = useState(['']);
+  const [categories, setCategories] = useState([""]);
   // const options = [
   //   //needs
   //   "Groceries",
@@ -66,13 +66,13 @@ const Expenses = () => {
         },
       }
     );
-    const temp = response.data.map((value)=> value.category)
-    setCategories(temp)
-    console.log(categories)
+    const temp = response.data.map((value) => value.category);
+    setCategories(temp);
+    console.log(categories);
   };
-  React.useEffect(()=>{
-    fetchCategories()
-  },[])
+  React.useEffect(() => {
+    fetchCategories();
+  }, []);
   async function handleExpenseSubmit() {
     event.preventDefault();
     const data = {
@@ -98,26 +98,26 @@ const Expenses = () => {
       console.log(err);
     }
     setExpense({
-      category: '',
+      category: "",
       title: "",
       amount: "",
       timestamp: "",
       frequency: "",
-    })
-    handleIncomingData()
+    });
+    handleIncomingData();
     setExpenseOpen(false);
   }
   async function handleIncomeSubmit(e) {
-    event.preventDefault()
+    event.preventDefault();
     const currentDate = new Date().toLocaleDateString();
     const incomeData = {
       stable: income.stability,
       title: income.title,
       amount: income.amount,
       endsOn: income.endsOn,
-      date: currentDate
+      date: currentDate,
     };
-    console.log(incomeData)
+    console.log(incomeData);
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_APP_SERVERURL}/api/income`,
@@ -137,14 +137,14 @@ const Expenses = () => {
       title: "",
       amount: "",
       timestamp: "",
-      stability: '',
+      stability: "",
       endsOn: "",
-    })
-    handleIncomingData()
-    setIncomeOpen(false)
+    });
+    handleIncomingData();
+    setIncomeOpen(false);
   }
   const [expense, setExpense] = useState({
-    category: '',
+    category: "",
     title: "",
     amount: "",
     timestamp: "",
@@ -154,12 +154,12 @@ const Expenses = () => {
     title: "",
     amount: "",
     timestamp: "",
-    stability:'',
+    stability: "",
     endsOn: "",
   });
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   function handleType(e, v, r) {
-    const name = ref0.current.getAttribute('name');
+    const name = ref0.current.getAttribute("name");
     setExpense((preValue) => {
       return {
         ...preValue,
@@ -167,34 +167,48 @@ const Expenses = () => {
       };
     });
   }
-  function handleIncomeType(e,v,r){
-    const name = ref1.current.getAttribute('name');
-    console.log(r)
-    setIncome((preValue)=>{
-      return{
+  function handleIncomeType(e, v, r) {
+    const name = ref1.current.getAttribute("name");
+    console.log(r);
+    setIncome((preValue) => {
+      return {
         ...preValue,
-        [name]: v
-      }
-    })
+        [name]: v,
+      };
+    });
   }
-  async function handleIncomingData(){
-    try{
-      const response = await axios.get(`${import.meta.env.VITE_APP_SERVERURL}/api/expense`,{
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${authToken.token}`,
+  async function handleIncomingData() {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_APP_SERVERURL}/api/expense`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken.token}`,
+          },
         }
-      })
-      console.log(response.data)
-      setData(response.data)
-    }catch(err){
-      console.log(err)
+      );
+      console.log(response.data);
+      setData(response.data);
+    } catch (err) {
+      console.log(err);
     }
   }
-  React.useEffect(()=>{
-    handleIncomingData()
-  },[])
+  React.useEffect(() => {
+    handleIncomingData();
+  }, []);
   const columns = [
+    {
+      field: "timestamp",
+      headerName: "Date",
+      type: "date",
+      headerAlign: "left",
+      align: "left",
+      flex: 1,
+      valueGetter: (params) => {
+        return new Date(params.value);
+      },
+    },
     {
       field: "title",
       headerName: "Title",
@@ -218,20 +232,27 @@ const Expenses = () => {
       align: "left",
     },
     {
-      field: "frequency",
+      field: "freq_per_year",
       headerName: "Frequency per Year",
       flex: 1,
       headerAlign: "left",
       align: "left",
+      valueGetter: (params) => {
+        return params.value == 0 ? "Not Recurring" : params.value;
+      },
     },
-    // {
-    //   field: "billLink",
-    //   headerName: "Bill",
-    //   flex: 1,
-    //   headerAlign: "left",
-    //   align: "left",
-    //   renderCell: (params) => <Link to={`/bills/${params.id}`}>View Bill</Link>,
-    // },
+    {
+      field: "billLink",
+      headerName: "Bill",
+      flex: 1,
+      headerAlign: "left",
+      align: "left",
+      renderCell: (params) => (
+        <a href="" className="link" target="_blank" rel="noopener noreferrer">
+          View Bill
+        </a>
+      ),
+    },
   ];
   return (
     <Box m="20px">
@@ -368,7 +389,7 @@ const Expenses = () => {
                     Enter your Expense Name:
                   </Typography>
                   <FormSample
-                  req={true}
+                    req={true}
                     id="title"
                     label="Expense Name"
                     height="2.5rem"
@@ -415,7 +436,7 @@ const Expenses = () => {
                     Enter your Expense amount:
                   </Typography>
                   <FormSample
-                  req={true}
+                    req={true}
                     id="amount"
                     label="Expense Amount"
                     height="2.5rem"
@@ -463,7 +484,7 @@ const Expenses = () => {
                     Enter your Expense frequency per year:
                   </Typography>
                   <FormSample
-                  // req={true}
+                    // req={true}
                     id="amount"
                     label="Expense periodicity"
                     height="2.5rem"
@@ -597,7 +618,7 @@ const Expenses = () => {
                     Enter Date and Time of Purchase:
                   </Typography>
                   <FormSample
-                  req={true}
+                    req={true}
                     id="timestamp"
                     label=""
                     height="2.5rem"
@@ -712,7 +733,7 @@ const Expenses = () => {
                     Enter your Income Name:
                   </Typography>
                   <FormSample
-                  req={true}
+                    req={true}
                     id="title"
                     label="Income Name"
                     height="2.5rem"
@@ -759,7 +780,7 @@ const Expenses = () => {
                     Enter your Income amount:
                   </Typography>
                   <FormSample
-                  req={true}
+                    req={true}
                     id="amount"
                     label="Income Amount"
                     height="2.5rem"
@@ -894,7 +915,7 @@ const Expenses = () => {
                     Enter Date and Time until Stable income:
                   </Typography>
                   <FormSample
-                  req={true}
+                    req={true}
                     id="timestamp"
                     label=""
                     height="2.5rem"
