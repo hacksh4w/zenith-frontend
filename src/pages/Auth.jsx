@@ -39,6 +39,7 @@ const Auth = () => {
         `${import.meta.env.VITE_APP_SERVERURL}${endpoint}`,
         data
       );
+      console.log(response)
       if (response.data !== undefined) {
         setCookie("AuthToken", response.data);
       }
@@ -114,7 +115,7 @@ const Auth = () => {
           <Signin
             isup={isup}
             setIsup={setIsup}
-            handleSignin={() => handleSubmitSignin(event, "/api/auth/signin")}
+            handleSignin={() => handleSubmitSignin(event, "/api/auth/login")}
             signin={signin}
             setSignIn={setSignIn}
           />
