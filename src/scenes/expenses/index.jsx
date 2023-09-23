@@ -1,63 +1,48 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
+import { mockDataExpenses } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import { Link } from "react-router-dom";
 
-const Contacts = () => {
+const Expenses = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-
   const columns = [
     { field: "id", headerName: "ID", flex: 0.5 },
-    { field: "registrarId", headerName: "Registrar ID" },
     {
-      field: "name",
-      headerName: "Name",
+      field: "label",
+      headerName: "Label",
       flex: 1,
-      cellClassName: "name-column--cell",
     },
     {
-      field: "age",
-      headerName: "Age",
+      field: "value",
+      headerName: "Value",
       type: "number",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "phone",
-      headerName: "Phone Number",
+      field: "type",
+      headerName: "Type",
       flex: 1,
     },
     {
-      field: "email",
-      headerName: "Email",
+      field: "freqPerYr",
+      headerName: "Frequency per Year",
       flex: 1,
     },
     {
-      field: "address",
-      headerName: "Address",
+      field: "billLink",
+      headerName: "Bill",
       flex: 1,
-    },
-    {
-      field: "city",
-      headerName: "City",
-      flex: 1,
-    },
-    {
-      field: "zipCode",
-      headerName: "Zip Code",
-      flex: 1,
+      renderCell: (params) => <Link to={`/bills/${params.id}`}>View Bill</Link>,
     },
   ];
-
   return (
     <Box m="20px">
-      <Header
-        title="CONTACTS"
-        subtitle="List of Contacts for Future Reference"
-      />
+      <Header title="Expenses" subtitle="Your Expenses" />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -91,7 +76,7 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={mockDataExpenses}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
@@ -100,4 +85,4 @@ const Contacts = () => {
   );
 };
 
-export default Contacts;
+export default Expenses;
