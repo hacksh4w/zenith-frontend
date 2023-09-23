@@ -62,7 +62,7 @@ const BarChart = ({ isDashboard = false }) => {
           },
         },
       }}
-      keys={categories.map((category) => category.name)}
+      keys={categories.map((category) => category.category)}
       //   keys={[
       //     "Groceries",
       //     "Fees",
