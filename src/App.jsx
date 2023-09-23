@@ -4,28 +4,35 @@ import Landing from "./pages/Landing";
 import { ThemeContext } from "./contexts/ContextApi";
 import Auth from "./pages/Auth";
 import { ContainerStyles } from "../palette";
-import {useMode} from './theme';
+import { useMode } from "./theme";
 import { ColorModeContext } from "./theme";
 import { ThemeProvider } from "@emotion/react";
 import DashboardRoute from "./pages/DashboardRoute";
-
+import maintheme from '../palette'
 function App() {
   const [theme, colorMode] = useMode();
-  const {logged, isLogged} = useContext(ThemeContext)
+  const [isSidebar, setIsSidebar] = useState(true);
+  const { logged, isLogged } = useContext(ThemeContext);
+  const { setCookie, cookies } = useContext(ThemeContext);
+  const authToken = cookies.AuthToken
   return (
-    <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <ContainerStyles>
-          {logged ? (
-            <>
-              <DashboardRoute/>
-            </>
-          ) : (
-            <Auth />
-          )}
-        </ContainerStyles>
-      </ThemeProvider>
-    </ColorModeContext.Provider>
+    <>
+      {authToken ? (
+        <>
+          <ColorModeContext.Provider value={colorMode}>
+            <ThemeProvider theme={theme}>
+              <ContainerStyles>
+                <DashboardRoute />
+              </ContainerStyles>
+            </ThemeProvider>
+          </ColorModeContext.Provider>
+        </>
+      ) : (
+        <ThemeProvider theme={maintheme}>
+          <Auth />
+        </ThemeProvider>
+      )}
+    </>
   );
 }
 

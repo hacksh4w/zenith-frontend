@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 // import { makeStyles } from '@mui/styles';
-const theme = createTheme({
+const maintheme = createTheme({
   palette: {
     black: {
       main: '#161616',
@@ -84,4 +84,4 @@ const StyledButton = styled(Button)({
   flexDirection:'row'
 })
 export { ContainerStyles, StyledTypography, StyledButton };
-export default theme;
+export default maintheme;
