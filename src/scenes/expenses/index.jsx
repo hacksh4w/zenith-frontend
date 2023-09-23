@@ -194,35 +194,43 @@ const Expenses = () => {
     handleIncomingData()
   },[])
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
     {
-      field: "label",
-      headerName: "Label",
+      field: "title",
+      headerName: "Title",
       flex: 1,
-    },
-    {
-      field: "value",
-      headerName: "Value",
-      type: "number",
       headerAlign: "left",
       align: "left",
     },
     {
-      field: "type",
-      headerName: "Type",
+      field: "amount",
+      headerName: "Amount",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
       flex: 1,
+    },
+    {
+      field: "category",
+      headerName: "Category",
+      flex: 1,
+      headerAlign: "left",
+      align: "left",
     },
     {
       field: "freqPerYr",
       headerName: "Frequency per Year",
       flex: 1,
+      headerAlign: "left",
+      align: "left",
     },
-    {
-      field: "billLink",
-      headerName: "Bill",
-      flex: 1,
-      renderCell: (params) => <Link to={`/bills/${params.id}`}>View Bill</Link>,
-    },
+    // {
+    //   field: "billLink",
+    //   headerName: "Bill",
+    //   flex: 1,
+    //   headerAlign: "left",
+    //   align: "left",
+    //   renderCell: (params) => <Link to={`/bills/${params.id}`}>View Bill</Link>,
+    // },
   ];
   return (
     <Box m="20px">
