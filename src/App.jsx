@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
 import "./App.css";
-import ContextApi from "./contexts/ContextApi";
 import Landing from "./pages/Landing";
 import { ThemeContext } from "./contexts/ContextApi";
 import Auth from "./pages/Auth";
@@ -8,6 +7,7 @@ import { ContainerStyles } from "../palette";
 function App() {
   const [theme, colorMode] = useMode();
   const [isSidebar, setIsSidebar] = useState(true);
+  console.log(logged)
 
   return (
     <ColorModeContext.Provider value={colorMode}>
