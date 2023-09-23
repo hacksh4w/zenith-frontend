@@ -72,7 +72,7 @@ const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
         tickSize: 3,
         tickPadding: 5,
         tickRotation: 0,
-        legend: isDashboard ? undefined : "Expense", // added
+        legend: isDashboard ? undefined : "Income", // added
         legendOffset: -40,
         legendPosition: "middle",
       }}
