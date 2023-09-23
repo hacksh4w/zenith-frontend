@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Slider } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataGoals } from "../../data/mockData";
@@ -9,22 +9,86 @@ import CustomModal from "../../components/CustomModal";
 import { useState } from "react";
 import Plus from "../../utils/Plus";
 import { ContainerStyles } from "../../../palette";
-
+import { useContext, useEffect } from "react";
+import { ThemeContext } from "../../contexts/ContextApi";
+import FormSample from "../../components/FormSample";
+import axios from 'axios'
 const Goals = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isOpen, setOpen] = useState(false);
   const [income, setIncome] = useState(0);
-  const [goal, setGoal] = useState({});
+  const { setCookie, cookies } = useContext(ThemeContext);
+  const [data, setData] = useState([])
+  const authToken = cookies.AuthToken;
+  const [goal, setGoal] = useState({
+    title: "",
+    amount: 0,
+    targetdate: "",
+    priority: 0,
+    completedAmount: 0,
+  });
+  function handleSlider(event, newValue) {
+    setGoal((preValue)=>{
+      return{
+        ...preValue,
+        priority:newValue
+      }
+    });
+  }
+  async function handleGoalSubmit() {
+    event.preventDefault()
+    try {
+      const data = goal;
+      console.log(data);
+      const response = await axios.post(
+        `${import.meta.env.VITE_APP_SERVERURL}/api/goal`,
+        { goal: data },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken.token}`,
+          },
+        }
+      );
+      console.log(response);
+      setGoal({
+        title: "",
+        amount: 0,
+        targetdate: "",
+        priority: 0,
+        completedAmount: 0,
+      })
+      setOpen(false)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+  const fetchGoals = async () => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_APP_SERVERURL}/api/goal`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken.token}`,
+        },
+      }
+    );
+    const temp = response.data
+    setData(temp)
+    console.log(temp)
+  };
+  useEffect(()=>{
+    fetchGoals()
+  },[])
   const columns = [
-    {
-      field: "id",
-      headerName: "ID",
-      type: "string",
-      headerAlign: "left",
-      align: "left",
-      flex: 0.5,
-    },
+    // {
+    //   field: "id",
+    //   headerName: "ID",
+    //   type: "string",
+    //   headerAlign: "left",
+    //   align: "left",
+    //   flex: 0.5,
+    // },
     {
       field: "title",
       headerName: "Label",
@@ -112,7 +176,7 @@ const Goals = () => {
         }}
       >
         <DataGrid
-          rows={mockDataGoals}
+          rows={data}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
@@ -121,9 +185,292 @@ const Goals = () => {
         <ContainerStyles
           sx={{
             minWidth: { xs: "95vw", sm: "85vw", md: "75vw" },
-            minHeight: "75vh",
+            minHeight: "50vh",
+            justifyContent: "center",
+            backgroundColor: "#141b2d",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            padding: { xs: "10px", sm: "20px", md: "50px" },
+            borderRadius: "20px",
           }}
-        ></ContainerStyles>
+        >
+          <form
+            method="post"
+            onSubmit={handleGoalSubmit}
+            style={{
+              width: "100%",
+              height: "55vh",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexDirection: "column",
+            }}
+          >
+            <ContainerStyles
+              sx={{
+                width: "80%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                flexDirection: { xs: "column", md: "row" },
+              }}
+            >
+              <ContainerStyles
+                sx={{
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                }}
+              >
+                <ContainerStyles
+                  sx={{
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontSize: "1.5rem",
+                      margin: "20px 0",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Enter your Goal Name:
+                  </Typography>
+                  <FormSample
+                    req={true}
+                    id="title"
+                    label="Goal Name"
+                    height="2.5rem"
+                    width="25rem"
+                    // type="number"
+                    generalcolor={"#fff"}
+                    fieldsetbgcolor={"transparent"}
+                    fieldsetborder={"2px solid white"}
+                    fieldsetborderradius={"5px"}
+                    InputLabelProps={{
+                      style: {
+                        color: "#ffffff",
+                        fontStyle: "montserrat",
+                        fontSize: "0.8rem",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        color: "#ffffff",
+                        fontStyle: "montserrat",
+                        fontSize: "1rem",
+                      },
+                    }}
+                    value={goal.title}
+                    onChange={setGoal}
+                    name="title"
+                    margin="0"
+                  />
+                </ContainerStyles>
+                <ContainerStyles
+                  sx={{
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontSize: "1.5rem",
+                      margin: "20px 0",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Enter your Goal Cost:
+                  </Typography>
+                  <FormSample
+                    req={true}
+                    id="cost"
+                    label="Goal cost"
+                    height="2.5rem"
+                    width="25rem"
+                    type="number"
+                    generalcolor={"#fff"}
+                    fieldsetbgcolor={"transparent"}
+                    fieldsetborder={"2px solid white"}
+                    fieldsetborderradius={"5px"}
+                    InputLabelProps={{
+                      style: {
+                        color: "#ffffff",
+                        fontStyle: "montserrat",
+                        fontSize: "0.8rem",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        color: "#ffffff",
+                        fontStyle: "montserrat",
+                        fontSize: "1rem",
+                      },
+                    }}
+                    value={goal.amount}
+                    onChange={setGoal}
+                    name="amount"
+                    margin="0"
+                  />
+                </ContainerStyles>
+                <ContainerStyles
+                  sx={{
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontSize: "1.5rem",
+                      margin: "20px 0",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Enter your Completed Savings Amount (if any):
+                  </Typography>
+                  <FormSample
+                    req={false}
+                    id="progress"
+                    label="Goal progress"
+                    height="2.5rem"
+                    width="25rem"
+                    type="number"
+                    generalcolor={"#fff"}
+                    fieldsetbgcolor={"transparent"}
+                    fieldsetborder={"2px solid white"}
+                    fieldsetborderradius={"5px"}
+                    InputLabelProps={{
+                      style: {
+                        color: "#ffffff",
+                        fontStyle: "montserrat",
+                        fontSize: "0.8rem",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        color: "#ffffff",
+                        fontStyle: "montserrat",
+                        fontSize: "1rem",
+                      },
+                    }}
+                    value={goal.completedAmount}
+                    onChange={setGoal}
+                    name="completedAmount"
+                    margin="0"
+                  />
+                </ContainerStyles>
+              </ContainerStyles>
+              <ContainerStyles
+                sx={{
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                }}
+              >
+                <ContainerStyles
+                  sx={{
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontSize: "1.5rem",
+                      margin: "20px 0",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Enter your Target Date:
+                  </Typography>
+                  <FormSample
+                    req={true}
+                    id="target"
+                    label=""
+                    height="2.5rem"
+                    width="25rem"
+                    type="date"
+                    generalcolor={"#fff"}
+                    fieldsetbgcolor={"transparent"}
+                    fieldsetborder={"2px solid white"}
+                    fieldsetborderradius={"5px"}
+                    InputLabelProps={{
+                      style: {
+                        color: "#ffffff",
+                        fontStyle: "montserrat",
+                        fontSize: "0.8rem",
+                      },
+                    }}
+                    InputProps={{
+                      style: {
+                        color: "#ffffff",
+                        fontStyle: "montserrat",
+                        fontSize: "1rem",
+                      },
+                    }}
+                    value={goal.targetDate}
+                    onChange={setGoal}
+                    name="targetDate"
+                    margin="0"
+                  />
+                </ContainerStyles>
+                <ContainerStyles
+                  sx={{
+                    alignItems: "flex-start",
+                    justifyContent: "flex-start",
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      color: "white",
+                      fontSize: "1.5rem",
+                      margin: "20px 0",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Enter your Target Priority {`(${goal.priority})`}:
+                  </Typography>
+                  <Slider
+                    sx={{ color: 'white' }}
+                    size="small"
+                    onChange={handleSlider}
+                    valueLabelDisplay="auto"
+                    //   aria-label='Small'
+                    getAriaValueText={(value) => `${value}/-`}
+                    getAriaLabel={() => "Price Range"}
+                    step={1}
+                    min={1}
+                    max={5}
+                    defaultValue={1}
+                  />
+                </ContainerStyles>
+              </ContainerStyles>
+            </ContainerStyles>
+            <Button
+              type="submit"
+              sx={{
+                backgroundColor: "#43b1b6",
+                "&:hover": {
+                  backgroundColor: "#43b1b6",
+                },
+                textTransform: "none",
+                width: "10rem",
+                height: "3rem",
+              }}
+            >
+              <Typography
+                sx={{
+                  color: "black.main",
+                  fontSize: "1.2rem",
+                }}
+              >
+                Submit
+              </Typography>
+            </Button>
+          </form>
+        </ContainerStyles>
       </CustomModal>
     </Box>
   );
