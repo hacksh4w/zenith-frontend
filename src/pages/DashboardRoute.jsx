@@ -12,9 +12,12 @@ import Form from "../scenes/form";
 import Line from "../scenes/line";
 import Pie from "../scenes/pie";
 import FAQ from "../scenes/faq";
+// import Calendar from "./../scenes/calendar/calendar";
+
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { ColorModeContext, useMode } from "../theme";
 import Goals from "../scenes/goals";
+
 const DashboardRoute = () => {
   const [isSidebar, setIsSidebar] = useState(true);
 
@@ -37,6 +40,7 @@ const DashboardRoute = () => {
               <Route path="/income" element={<Line />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/goals" element={<Goals />} />
+              {/* <Route path="/calendar" element={<Calendar />} /> */}
             </Routes>
           </div>
         </main>
