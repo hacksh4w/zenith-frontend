@@ -22,40 +22,57 @@ import { ThemeContext } from "../../contexts/ContextApi";
 import { setIn } from "formik";
 const Expenses = () => {
   const theme = useTheme();
-  const ref1 = useRef();
-  const ref0 = useRef();
-  const incomeOptions = ["Yes", "No", ""];
+  const ref1 = useRef()
+  const ref0 = useRef()
+  const incomeOptions = ["Yes", "No",''];
   const { setCookie, cookies } = useContext(ThemeContext);
   const authToken = cookies.AuthToken;
   const colors = tokens(theme.palette.mode);
   const [isExpenseOpen, setExpenseOpen] = useState(false);
   const [isIncomeOpen, setIncomeOpen] = useState(false);
-  const options = [
-    //needs
-    "Groceries",
-    "Fees",
-    "Utilties (wifi, internet)",
-    "Fuel costs",
-    "Public transport",
-    "Utensils",
-    "Career devlopment (courses, certifs)",
-    "college others",
-    "Health & recreation",
-    "College industrial visit expenses",
-    //savings
-    "Loan/Debt",
-    "Investment",
-    "insurance",
-    "College Fee",
-    // "Public transport",
-    "Emergency Fund",
-    //wants
-    "Fast food",
-    "Entertainment",
-    "Fuel",
-    "Fashion",
-    "",
-  ];
+  const [categories, setCategories] = useState(['']);
+  // const options = [
+  //   //needs
+  //   "Groceries",
+  //   "Fees",
+  //   "Utilties (wifi, internet)",
+  //   "Fuel costs",
+  //   "Public transport",
+  //   "Utensils",
+  //   "Career devlopment (courses, certifs)",
+  //   "college others",
+  //   "Health & recreation",
+  //   "College industrial visit expenses",
+  //   //savings
+  //   "Loan/Debt",
+  //   "Investment",
+  //   "insurance",
+  //   "College Fee",
+  //   // "Public transport",
+  //   "Emergency Fund",
+  //   //wants
+  //   "Fast food",
+  //   "Entertainment",
+  //   "Fuel",
+  //   "Fashion",
+  //   ''
+  // ];
+  const fetchCategories = async () => {
+    const response = await axios.get(
+      `${import.meta.env.VITE_APP_SERVERURL}/api/category`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken.token}`,
+        },
+      }
+    );
+    const temp = response.data.map((value)=> value.category)
+    setCategories(temp)
+    console.log(categories)
+  };
+  React.useEffect(()=>{
+    fetchCategories()
+  },[])
   async function handleExpenseSubmit() {
     event.preventDefault();
     const data = {
@@ -80,25 +97,26 @@ const Expenses = () => {
       console.log(err);
     }
     setExpense({
-      category: "",
+      category: '',
       title: "",
       amount: "",
       timestamp: "",
       frequency: "",
-    });
+    })
+    handleIncomingData()
     setExpenseOpen(false);
   }
   async function handleIncomeSubmit(e) {
-    event.preventDefault();
+    event.preventDefault()
     const currentDate = new Date().toLocaleDateString();
     const incomeData = {
       stable: income.stability,
       title: income.title,
       amount: income.amount,
       endsOn: income.endsOn,
-      date: currentDate,
+      date: currentDate
     };
-    console.log(incomeData);
+    console.log(incomeData)
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_APP_SERVERURL}/api/income`,
@@ -118,13 +136,14 @@ const Expenses = () => {
       title: "",
       amount: "",
       timestamp: "",
-      stability: "",
+      stability: '',
       endsOn: "",
-    });
-    setIncomeOpen(false);
+    })
+    handleIncomingData()
+    setIncomeOpen(false)
   }
   const [expense, setExpense] = useState({
-    category: "",
+    category: '',
     title: "",
     amount: "",
     timestamp: "",
@@ -134,12 +153,12 @@ const Expenses = () => {
     title: "",
     amount: "",
     timestamp: "",
-    stability: "",
+    stability:'',
     endsOn: "",
   });
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([])
   function handleType(e, v, r) {
-    const name = ref0.current.getAttribute("name");
+    const name = ref0.current.getAttribute('name');
     setExpense((preValue) => {
       return {
         ...preValue,
@@ -147,74 +166,63 @@ const Expenses = () => {
       };
     });
   }
-  function handleIncomeType(e, v, r) {
-    const name = ref1.current.getAttribute("name");
-    console.log(r);
-    setIncome((preValue) => {
-      return {
+  function handleIncomeType(e,v,r){
+    const name = ref1.current.getAttribute('name');
+    console.log(r)
+    setIncome((preValue)=>{
+      return{
         ...preValue,
-        [name]: v,
-      };
-    });
+        [name]: v
+      }
+    })
   }
-  async function handleIncomingData() {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_APP_SERVERURL}/api/expense`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${authToken.token}`,
-          },
+  async function handleIncomingData(){
+    try{
+      const response = await axios.get(`${import.meta.env.VITE_APP_SERVERURL}/api/expense`,{
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken.token}`,
         }
-      );
-      console.log(response.data);
-      const temp = response.data;
-    } catch (err) {
-      console.log(err);
+      })
+      console.log(response.data)
+      setData(response.data)
+    }catch(err){
+      console.log(err)
     }
   }
-  React.useEffect(() => {
-    handleIncomingData();
-  }, [handleIncomingData]);
+  React.useEffect(()=>{
+    handleIncomingData()
+  },[])
   const columns = [
+    { field: "id", headerName: "ID", flex: 0.5 },
     {
-      field: "title",
-      headerName: "Title",
+      field: "label",
+      headerName: "Label",
       flex: 1,
-      headerAlign: "left",
-      align: "left",
     },
     {
-      field: "amount",
-      headerName: "Amount",
+      field: "value",
+      headerName: "Value",
       type: "number",
       headerAlign: "left",
       align: "left",
-      flex: 1,
     },
     {
-      field: "category",
-      headerName: "Category",
+      field: "type",
+      headerName: "Type",
       flex: 1,
-      headerAlign: "left",
-      align: "left",
     },
     {
       field: "freqPerYr",
       headerName: "Frequency per Year",
       flex: 1,
-      headerAlign: "left",
-      align: "left",
     },
-    // {
-    //   field: "billLink",
-    //   headerName: "Bill",
-    //   flex: 1,
-    //   headerAlign: "left",
-    //   align: "left",
-    //   renderCell: (params) => <Link to={`/bills/${params.id}`}>View Bill</Link>,
-    // },
+    {
+      field: "billLink",
+      headerName: "Bill",
+      flex: 1,
+      renderCell: (params) => <Link to={`/bills/${params.id}`}>View Bill</Link>,
+    },
   ];
   return (
     <Box m="20px">
@@ -288,7 +296,7 @@ const Expenses = () => {
         }}
       >
         <DataGrid
-          rows={mockDataExpenses}
+          rows={data}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
         />
@@ -299,9 +307,9 @@ const Expenses = () => {
           sx={{
             minWidth: { xs: "95vw", sm: "85vw", md: "75vw" },
             minHeight: "50vh",
-            justifyContent: "left",
+            justifyContent: "center",
             backgroundColor: "#141b2d",
-            alignItems: "left",
+            alignItems: "center",
             justifyContent: "flex-start",
             padding: { xs: "10px", sm: "20px", md: "50px" },
             borderRadius: "20px",
@@ -314,7 +322,7 @@ const Expenses = () => {
               width: "100%",
               height: "45vh",
               display: "flex",
-              alignItems: "left",
+              alignItems: "center",
               justifyContent: "space-between",
               flexDirection: "column",
             }}
@@ -323,7 +331,7 @@ const Expenses = () => {
               sx={{
                 width: "80%",
                 display: "flex",
-                alignItems: "left",
+                alignItems: "center",
                 justifyContent: "space-between",
                 flexDirection: { xs: "column", md: "row" },
               }}
@@ -454,7 +462,7 @@ const Expenses = () => {
                     value={expense.category}
                     onChange={handleType}
                     id="category"
-                    options={options}
+                    options={categories}
                     ref={ref0}
                     name="category"
                     sx={{ width: "100%", margin: "0", zIndex: "10000" }}
@@ -593,9 +601,9 @@ const Expenses = () => {
           sx={{
             minWidth: { xs: "95vw", sm: "85vw", md: "75vw" },
             minHeight: "50vh",
-            justifyContent: "left",
+            justifyContent: "center",
             backgroundColor: "#141b2d",
-            alignItems: "left",
+            alignItems: "center",
             justifyContent: "flex-start",
             padding: { xs: "10px", sm: "20px", md: "50px" },
             borderRadius: "20px",
@@ -608,7 +616,7 @@ const Expenses = () => {
               width: "100%",
               height: "45vh",
               display: "flex",
-              alignItems: "left",
+              alignItems: "center",
               justifyContent: "space-between",
               flexDirection: "column",
             }}
@@ -617,7 +625,7 @@ const Expenses = () => {
               sx={{
                 width: "80%",
                 display: "flex",
-                alignItems: "left",
+                alignItems: "center",
                 justifyContent: "space-between",
                 flexDirection: { xs: "column", md: "row" },
               }}
