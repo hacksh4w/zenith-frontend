@@ -1,6 +1,6 @@
 import React from 'react'
 import { ContainerStyles } from '../../palette'
-
+import authimage from '../assets/authimage.jpg'
 const Auth = () => {
   return (
     <ContainerStyles sx={{
@@ -12,7 +12,7 @@ const Auth = () => {
             minHeight:'75vh',
             minWidth:{xs:'95vw', sm:'80vw', md:'85vw'}
         }}>
-
+            <Box src={authimage}/>
         </ContainerStyles>
     </ContainerStyles>
   )
