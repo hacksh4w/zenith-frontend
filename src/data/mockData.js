@@ -1281,3 +1281,24 @@ export const mockGeographyData = [
     value: 171135,
   },
 ];
+
+export const mockDataExpenses = [
+  {
+    id: 1,
+    label: "date",
+    value: 100,
+    type: "groceries",
+    freqPerYr: 2,
+    date: "2019/03/08",
+    bill: "https://www.google.com",
+  },
+  {
+    id: 2,
+    label: "date",
+    value: 100,
+    type: "food",
+    freqPerYr: 2,
+    date: "2020/03/08",
+    bill: "https://www.google.com",
+  },
+];
