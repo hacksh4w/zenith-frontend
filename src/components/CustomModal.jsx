@@ -18,7 +18,7 @@ const CustomModal = ({ isOpen, setOpen, children }) => {
       border: "none",
     },
     overlay: {
-      zIndex: "10000",
+      zIndex: "1100",
     },
   };
   return (
