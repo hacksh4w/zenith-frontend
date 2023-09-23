@@ -1,30 +1,34 @@
-import { useTheme } from "@mui/material"
-import { ResponsiveBar } from "@nivo/bar"
-import { tokens } from "../theme"
-import { mockBarData as data } from "../data/mockData"
+import { useTheme } from "@mui/material";
+import { ResponsiveBar } from "@nivo/bar";
+import { tokens } from "../theme";
+import { mockBarData as data } from "../data/mockData";
+import { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import { ThemeContext } from "../contexts/ContextApi";
 
 const BarChart = ({ isDashboard = false }) => {
-  const theme = useTheme()
-  const colors = tokens(theme.palette.mode)
-
-  const [categories, setCategories] = useState([])
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const [categories, setCategories] = useState([]);
+  const { cookies } = useContext(ThemeContext);
 
   const fetchCategories = async () => {
     const response = await axios.get(
-      `${import.meta.env.VITE_APP_SERVERURL}/api/categories`,
+      `${import.meta.env.VITE_APP_SERVERURL}/api/category`,
       {
         headers: {
-          Authorization: `Bearer ${getCookie("AuthToken")}`,
+          Authorization: `Bearer ${cookies.AuthToken.token}`,
         },
       }
-    )
+    );
 
-    setCategories(response.data)
-  }
+    setCategories(response.data);
+    console.log(response.data);
+  };
 
   useEffect(() => {
-    fetchCategories()
-  }, [])
+    fetchCategories();
+  }, []);
 
   return (
     <ResponsiveBar
@@ -59,6 +63,28 @@ const BarChart = ({ isDashboard = false }) => {
         },
       }}
       keys={categories.map((category) => category.name)}
+      //   keys={[
+      //     "Groceries",
+      //     "Fees",
+      //     "Utilties (wifi, internet)",
+      //     "Fuel costs",
+      //     "Public transport",
+      //     "Utensils",
+      //     "Career devlopment",
+      //     "College others",
+      //     "Health & recreation",
+      //     "College industrial visit expenses",
+      //     "Loan/Debt",
+      //     "Investment",
+      //     "insurance",
+      //     "College Fee",
+      //     "Public transport",
+      //     "Emergency Fund",
+      //     "Fast food",
+      //     "Entertainment",
+      //     "Fuel",
+      //     "Fashion",
+      //   ]}
       indexBy="country"
       margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
       padding={0.3}
@@ -140,10 +166,10 @@ const BarChart = ({ isDashboard = false }) => {
       ]}
       role="application"
       barAriaLabel={function (e) {
-        return e.id + ": " + e.formattedValue + " in country: " + e.indexValue
+        return e.id + ": " + e.formattedValue + " in country: " + e.indexValue;
       }}
     />
-  )
-}
+  );
+};
 
-export default BarChart
+export default BarChart;
