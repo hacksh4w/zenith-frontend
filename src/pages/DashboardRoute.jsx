@@ -5,7 +5,6 @@ import Topbar from "../scenes/global/Topbar";
 import Sidebar from "../scenes/global/Sidebar";
 import Dashboard from "../scenes/dashboard";
 import Team from "../scenes/team";
-import Invoices from "../scenes/invoices";
 import Expenses from "../scenes/expenses";
 import Bar from "../scenes/bar";
 import Form from "../scenes/form";
@@ -33,7 +32,7 @@ const DashboardRoute = () => {
               <Route path="/" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
               <Route path="/expenses" element={<Expenses />} />
-              <Route path="/invoices" element={<Invoices />} />
+              <Route path="/goals" element={<Goals />} />
               <Route path="/form" element={<Form />} />
               <Route path="/bar" element={<Bar />} />
               <Route path="/expenseratio" element={<Pie />} />
