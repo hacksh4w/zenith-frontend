@@ -6,21 +6,22 @@ import Button from '@mui/material/Button';
 // import { makeStyles } from '@mui/styles';
 const theme = createTheme({
   palette: {
-    white: {
-      main: '',
+    black: {
+      main: '#161616',
       submain: '',
     },
-    green: {
-      lighter: '',
-      light: '',
-      main: '',
+    blue: {
+      lighter: '#3DBAC1',
+      light: '#258EC9 ',
+      main: '#3340C4',
       dark: '',
       darker: '',
       mix:''
     },
-    orange: {
-      lighter:'',
-      main: '',
+    purple: {
+      lighter:'#8B7FBD f',
+      main :'#4E24C9',
+      dark: '#381D8A',
     },
     brown:{
       main:''
