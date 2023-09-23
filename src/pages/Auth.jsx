@@ -2,7 +2,8 @@ import React from 'react'
 import { ContainerStyles } from '../../palette'
 import authimage from '../assets/authimage.jpg'
 import { useImageSize } from 'react-image-size';
-import { Box, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material';
+import FormSample from '../components/FormSample';
 const Auth = () => {
     const [dimensions, { loading, error }] = useImageSize(authimage);
   const aspectRatio =
