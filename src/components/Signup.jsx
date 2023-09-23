@@ -169,6 +169,7 @@ const Signup = ({ handleSignup, setSignUp, signup, isup, setIsup }) => {
             fontSize: "1rem",
             textDecoration: "underline",
             color: "white",
+            cursor:'pointer'
           }}
         >
           Or Sign in instead
@@ -178,9 +179,9 @@ const Signup = ({ handleSignup, setSignUp, signup, isup, setIsup }) => {
             handleSignup(event, "/api/auth/signup");
           }}
           sx={{
-            backgroundColor: "white",
+            backgroundColor: "#4cceac",
             "&:hover": {
-              backgroundColor: "white",
+              backgroundColor: "#4cceac",
             },
             textTransform: "none",
             color: "black",

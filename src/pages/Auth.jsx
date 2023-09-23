@@ -79,8 +79,7 @@ const Auth = () => {
       sx={{
         minWidth: "100vw",
         minHeight: "100vh",
-        background:
-          "radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 77%, rgba(0,78,255,1) 100%)",
+        backgroundColor:'#141b2d'
       }}
     >
       <ContainerStyles

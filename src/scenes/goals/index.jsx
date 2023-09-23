@@ -79,7 +79,19 @@ const Goals = () => {
   };
   useEffect(()=>{
     fetchGoals()
-  },[])
+  },[]);
+  async function testFunction(){
+    const response = await axios.post(`${import.meta.env.VITE_APP_SERVERURL}/api/urge`,{
+      userItem:'SmartPhone',
+      itemCost:'30000'
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${authToken.token}`,
+      },
+    },)
+    console.log(response)
+  }
   const columns = [
     // {
     //   field: "id",
@@ -126,7 +138,8 @@ const Goals = () => {
     <Box m="20px">
       <Header title="Goals" subtitle="Your Goals" />
       <Button
-        onClick={() => setOpen(true)}
+        // onClick={() => setOpen(true)}
+        onClick={()=> testFunction()}
         sx={{
           backgroundColor: "#43b1b6",
           "&:hover": {
