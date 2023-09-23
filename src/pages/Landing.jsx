@@ -1,5 +1,5 @@
 import React from "react";
-import { ContainerStyles } from "../palette";
+import { ContainerStyles } from "../../palette";
 
 const Landing = () => {
   return (

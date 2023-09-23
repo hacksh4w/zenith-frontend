@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 export const ThemeContext = createContext();
 const ContextApi = ({children}) => {
-  const [logged, setLogged] = useState(false);
+  const [logged, setLogged] = useState(true);
   return (
     <ThemeContext.Provider value={{logged,setLogged}}>
         {children}
