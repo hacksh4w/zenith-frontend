@@ -149,6 +149,24 @@ const Goals = () => {
       align: "left",
       flex: 1,
     },
+<<<<<<< HEAD
+=======
+    {
+      field: "percentageOfSavings",
+      headerName: "Percentage of Savings",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
+      flex: 1,
+    },
+    {
+        field: "achiveable",
+        type: "boolean",
+        headerAlign: "left",
+        align: "left",
+        flex: 1,
+    },
+>>>>>>> 5cf311d5b3905acab235157986b247632190fa2f
   ];
   return (
     <Box m="20px">
