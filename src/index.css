@@ -31,3 +31,6 @@ input[type="number"] {
     transform: rotate(360deg);
   }
 }
+.badge {
+  padding: 15px 15px 15px 15px;
+}

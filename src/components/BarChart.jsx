@@ -43,7 +43,7 @@ const BarChart = ({ isDashboard = false }) => {
 
   return (
     <ResponsiveBar
-      data={expenses}
+      data={data}
       theme={{
         // added
         axis: {
