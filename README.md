@@ -45,7 +45,7 @@ At its core, this app is dedicated to empowering everyday financial confidence f
 <br>
 
 ### Live Demo
-Hosted Link : [Zenith]
+Hosted Link : [Zenith](https://zenithweb.netlify.app/)
 
 Currently, two official plugins are available:
 
