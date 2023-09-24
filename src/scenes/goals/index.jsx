@@ -97,8 +97,13 @@ const Goals = () => {
           },
         }
       );
-      console.log(response.data);
-      console.log(data)
+      const stat = response.data
+      const temp = data.map((value)=>{
+        return{
+          ...value,
+          // []
+        }
+      })
     } catch (err) {
       console.log(err);
     }
@@ -149,8 +154,6 @@ const Goals = () => {
       align: "left",
       flex: 1,
     },
-<<<<<<< HEAD
-=======
     {
       field: "percentageOfSavings",
       headerName: "Percentage of Savings",
@@ -166,7 +169,6 @@ const Goals = () => {
         align: "left",
         flex: 1,
     },
->>>>>>> 5cf311d5b3905acab235157986b247632190fa2f
   ];
   return (
     <Box m="20px">
