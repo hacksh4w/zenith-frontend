@@ -11,9 +11,10 @@ const BarChart = ({ isDashboard = false }) => {
   const colors = tokens(theme.palette.mode);
   const [categories, setCategories] = useState([]);
   const { cookies } = useContext(ThemeContext);
+  const [expenses, setExpenses] = useState([]);
 
   const fetchCategories = async () => {
-    const response = await axios.get(
+    const responseCategory = await axios.get(
       `${import.meta.env.VITE_APP_SERVERURL}/api/category`,
       {
         headers: {
@@ -22,8 +23,18 @@ const BarChart = ({ isDashboard = false }) => {
       }
     );
 
-    setCategories(response.data);
-    console.log(response.data);
+    setCategories(responseCategory.data);
+    console.log(responseCategory.data);
+    const responseExpenses = await axios.get(
+      `${import.meta.env.VITE_APP_SERVERURL}/api/expense`,
+      {
+        headers: {
+          Authorization: `Bearer ${cookies.AuthToken.token}`,
+        },
+      }
+    );
+    setExpenses(responseExpenses.data);
+    console.log(responseExpenses.data);
   };
 
   useEffect(() => {
@@ -32,7 +43,7 @@ const BarChart = ({ isDashboard = false }) => {
 
   return (
     <ResponsiveBar
-      data={data}
+      data={expenses}
       theme={{
         // added
         axis: {
