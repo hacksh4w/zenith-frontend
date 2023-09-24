@@ -18,7 +18,7 @@ const Goals = () => {
   const colors = tokens(theme.palette.mode);
   const [isOpen, setOpen] = useState(false);
   const [income, setIncome] = useState(0);
-  const { setCookie, cookies } = useContext(ThemeContext);
+  const { setCookie, cookies, totalIncome, setTotalIncome } = useContext(ThemeContext);
   const [data, setData] = useState([]);
   const authToken = cookies.AuthToken;
   const [goal, setGoal] = useState({
@@ -66,6 +66,22 @@ const Goals = () => {
       console.log(err);
     }
   }
+  const fetchIncome = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_APP_SERVERURL}/api/income/${cookies.IncomeId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken.token}`,
+          },
+        }
+      );
+      console.log(response.data.amount);
+      setTotalIncome(response.data.amount);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const fetchGoalsAndStats = async () => {
     const response1 = await axios.get(
       `${import.meta.env.VITE_APP_SERVERURL}/api/goal`,
@@ -85,18 +101,18 @@ const Goals = () => {
         },
       }
     );
-    const stat = response2.data
-    console.log(stat)
-    const temp2 = response1.data.map((value, index)=>{
-      console.log(stat[0][index].achiveableOrNot)
-      return{
+    const stat = response2.data;
+    console.log(stat);
+    const temp2 = response1.data.map((value, index) => {
+      console.log(stat[0][index].achiveableOrNot);
+      return {
         ...value,
         percentageOfSavings: stat[0][index].percentageOfSavings,
-        achiveableOrNot: stat[0][index].achiveableOrNot
-      }
-    })
-    console.log(temp2)
-    setData(temp2)
+        achiveableOrNot: stat[0][index].achiveableOrNot,
+      };
+    });
+    console.log(temp2);
+    setData(temp2);
   };
   // const fetchIncome = async () =>{
   //   try{
@@ -108,7 +124,6 @@ const Goals = () => {
   // }
   const fetchStats = async () => {
     try {
-      
     } catch (err) {
       console.log(err);
     }
@@ -168,12 +183,12 @@ const Goals = () => {
       flex: 1,
     },
     {
-        field: "achiveableOrNot",
-        headerName:'Achiveability',
-        type: "string",
-        headerAlign: "left",
-        align: "left",
-        flex: 1,
+      field: "achiveableOrNot",
+      headerName: "Achiveability",
+      type: "string",
+      headerAlign: "left",
+      align: "left",
+      flex: 1,
     },
   ];
   return (
@@ -197,6 +212,16 @@ const Goals = () => {
         </Typography>
         <Plus />
       </Button>
+      <Typography
+        sx={{
+          fontSize: "1.5rem",
+          color: "white",
+          padding: "0 10px",
+          width: "25rem",
+        }}
+      >
+        My Income: {totalIncome}
+      </Typography>
       <Box
         m="40px 0 0 0"
         height="75vh"

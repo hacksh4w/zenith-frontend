@@ -27,7 +27,7 @@ const Calendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [chat, setChat] = useState([
-    {bot:'Hello there!!, give me a one worder prompt'}
+    {bot:'Hello there!!, give me a prompt'}
   ]);
   const [user, setUser] = useState({
     user: "",

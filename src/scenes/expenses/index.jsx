@@ -25,12 +25,13 @@ const Expenses = () => {
   const ref1 = useRef();
   const ref0 = useRef();
   const incomeOptions = ["Yes", "No", ""];
-  const { setCookie, cookies } = useContext(ThemeContext);
+  const { setCookie, cookies, totalIncome, setTotalIncome } = useContext(ThemeContext);
   const authToken = cookies.AuthToken;
   const colors = tokens(theme.palette.mode);
   const [isExpenseOpen, setExpenseOpen] = useState(false);
   const [isIncomeOpen, setIncomeOpen] = useState(false);
   const [categories, setCategories] = useState([""]);
+  // const [incomeid, setIncomeId] = useState('');
   // const options = [
   //   //needs
   //   "Groceries",
@@ -57,6 +58,23 @@ const Expenses = () => {
   //   "Fashion",
   //   ''
   // ];
+  const fetchIncome = async () => {
+    try{
+      const response = await axios.get(
+        `${import.meta.env.VITE_APP_SERVERURL}/api/income/${cookies.IncomeId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken.token}`,
+          },
+        }
+      );
+      console.log(response.data.amount)
+    setTotalIncome(response.data.amount)
+  }
+  catch(err){
+    console.log(err)
+  }
+}
   const fetchCategories = async () => {
     const response = await axios.get(
       `${import.meta.env.VITE_APP_SERVERURL}/api/category`,
@@ -71,6 +89,7 @@ const Expenses = () => {
     console.log(categories);
   };
   React.useEffect(() => {
+    fetchIncome();
     fetchCategories();
   }, []);
   async function handleExpenseSubmit() {
@@ -129,7 +148,7 @@ const Expenses = () => {
           },
         }
       );
-      console.log(response);
+      setCookie("IncomeId", response.data)
     } catch (err) {
       console.log(err);
     }
@@ -255,7 +274,12 @@ const Expenses = () => {
     },
   ];
   return (
-    <Box m="20px">
+    <Box m="20px" sx={{
+      // display:'flex',
+      // alignItems:'center',
+      // justifyContent:'space-between',
+      // flexDirection:'column'
+    }}>
       <Header title="Expenses" subtitle="Your Expenses" />
       <Button
         onClick={() => setExpenseOpen(true)}
@@ -293,6 +317,11 @@ const Expenses = () => {
         </Typography>
         <Plus />
       </Button>
+      <Typography
+          sx={{ fontSize: "1.5rem", color: "white", padding: "0 10px", width:'25rem' }}
+        >
+          My Income: {totalIncome}
+        </Typography>
       <Box
         m="40px 0 0 0"
         height="75vh"
