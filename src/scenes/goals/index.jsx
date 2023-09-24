@@ -88,11 +88,11 @@ const Goals = () => {
     const stat = response2.data
     console.log(stat)
     const temp2 = response1.data.map((value, index)=>{
-      console.log(stat[0][index].achievableOrNot)
+      console.log(stat[0][index].achiveableOrNot)
       return{
         ...value,
         percentageOfSavings: stat[0][index].percentageOfSavings,
-        achievableOrNot: stat[0][index].achievable
+        achiveableOrNot: stat[0][index].achiveableOrNot
       }
     })
     console.log(temp2)
@@ -168,7 +168,7 @@ const Goals = () => {
       flex: 1,
     },
     {
-        field: "achievableOrNot",
+        field: "achiveableOrNot",
         headerName:'Achiveability',
         type: "string",
         headerAlign: "left",
