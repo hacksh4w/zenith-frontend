@@ -59,6 +59,8 @@ const Goals = () => {
         priority: 0,
         completedAmount: 0,
       });
+      fetchGoals();
+      fetchStats();
       setOpen(false);
     } catch (err) {
       console.log(err);
@@ -77,6 +79,14 @@ const Goals = () => {
     setData(temp);
     console.log(temp);
   };
+  // const fetchIncome = async () =>{
+  //   try{
+  //     const response = await axios.get( `${import.meta.env.VITE_APP_SERVERURL}/api/stats`,
+  //     )
+  //   }catch(){
+
+  //   }
+  // }
   const fetchStats = async () => {
     try {
       const response = await axios.get(
@@ -88,6 +98,7 @@ const Goals = () => {
         }
       );
       console.log(response.data);
+      console.log(data)
     } catch (err) {
       console.log(err);
     }
@@ -133,14 +144,6 @@ const Goals = () => {
     {
       field: "completed_amount",
       headerName: "Completed Amount",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      flex: 1,
-    },
-    {
-      field: "percentageOfSavings",
-      headerName: "Percentage of Savings",
       type: "number",
       headerAlign: "left",
       align: "left",
