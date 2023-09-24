@@ -138,6 +138,14 @@ const Goals = () => {
       align: "left",
       flex: 1,
     },
+    {
+      field: "percentageOfSavings",
+      headerName: "Percentage of Savings",
+      type: "number",
+      headerAlign: "left",
+      align: "left",
+      flex: 1,
+    },
   ];
   return (
     <Box m="20px">
