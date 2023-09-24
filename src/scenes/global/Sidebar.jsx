@@ -63,6 +63,7 @@ const Sidebar = () => {
   return (
     <Box
       sx={{
+        height:'100vh',
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
         },
@@ -181,8 +182,8 @@ const Sidebar = () => {
               Pages
             </Typography>
             <Item
-              title="Calendar"
-              to="/calendar"
+              title="ChatBot"
+              to="/chatbot"
               icon={<CalendarTodayOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
