@@ -138,7 +138,7 @@ const Signup = ({ handleSignup, setSignUp, signup, isup, setIsup }) => {
         />
         <FormSample
           id="dob"
-          label="confirm your dob"
+          label=""
           height="4rem"
           width="100%"
           type="date"
