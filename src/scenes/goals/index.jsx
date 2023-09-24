@@ -146,6 +146,13 @@ const Goals = () => {
       align: "left",
       flex: 1,
     },
+    {
+        field: "achiveable",
+        type: "boolean",
+        headerAlign: "left",
+        align: "left",
+        flex: 1,
+    },
   ];
   return (
     <Box m="20px">
