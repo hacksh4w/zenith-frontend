@@ -12,14 +12,14 @@ import { ContainerStyles } from "../../../palette";
 import { useContext, useEffect } from "react";
 import { ThemeContext } from "../../contexts/ContextApi";
 import FormSample from "../../components/FormSample";
-import axios from 'axios'
+import axios from "axios";
 const Goals = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isOpen, setOpen] = useState(false);
   const [income, setIncome] = useState(0);
   const { setCookie, cookies } = useContext(ThemeContext);
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]);
   const authToken = cookies.AuthToken;
   const [goal, setGoal] = useState({
     title: "",
@@ -29,15 +29,15 @@ const Goals = () => {
     completedAmount: 0,
   });
   function handleSlider(event, newValue) {
-    setGoal((preValue)=>{
-      return{
+    setGoal((preValue) => {
+      return {
         ...preValue,
-        priority:newValue
-      }
+        priority: newValue,
+      };
     });
   }
   async function handleGoalSubmit() {
-    event.preventDefault()
+    event.preventDefault();
     try {
       const data = goal;
       console.log(data);
@@ -58,10 +58,10 @@ const Goals = () => {
         targetdate: "",
         priority: 0,
         completedAmount: 0,
-      })
-      setOpen(false)
+      });
+      setOpen(false);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
   const fetchGoals = async () => {
@@ -73,13 +73,30 @@ const Goals = () => {
         },
       }
     );
-    const temp = response.data
-    setData(temp)
-    console.log(temp)
+    const temp = response.data;
+    setData(temp);
+    console.log(temp);
   };
-  useEffect(()=>{
-    fetchGoals()
-  },[])
+  const fetchStats = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_APP_SERVERURL}/api/stats`,
+        {
+          headers: {
+            Authorization: `Bearer ${authToken.token}`,
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    fetchGoals();
+    fetchStats();
+  }, []);
+
   const columns = [
     // {
     //   field: "id",
@@ -433,7 +450,7 @@ const Goals = () => {
                     Enter your Target Priority {`(${goal.priority})`}:
                   </Typography>
                   <Slider
-                    sx={{ color: 'white' }}
+                    sx={{ color: "white" }}
                     size="small"
                     onChange={handleSlider}
                     valueLabelDisplay="auto"
