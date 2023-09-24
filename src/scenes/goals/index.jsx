@@ -66,8 +66,8 @@ const Goals = () => {
       console.log(err);
     }
   }
-  const fetchGoals = async () => {
-    const response = await axios.get(
+  const fetchGoalsAndStats = async () => {
+    const response1 = await axios.get(
       `${import.meta.env.VITE_APP_SERVERURL}/api/goal`,
       {
         headers: {
@@ -75,9 +75,28 @@ const Goals = () => {
         },
       }
     );
-    const temp = response.data;
-    setData(temp);
-    console.log(temp);
+    const temp1 = response1.data;
+    // setData(temp1);
+    const response2 = await axios.get(
+      `${import.meta.env.VITE_APP_SERVERURL}/api/stats`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken.token}`,
+        },
+      }
+    );
+    const stat = response2.data
+    console.log(stat)
+    const temp2 = response1.data.map((value, index)=>{
+      console.log(stat[0][index].achievableOrNot)
+      return{
+        ...value,
+        percentageOfSavings: stat[0][index].percentageOfSavings,
+        achievableOrNot: stat[0][index].achievable
+      }
+    })
+    console.log(temp2)
+    setData(temp2)
   };
   // const fetchIncome = async () =>{
   //   try{
@@ -89,28 +108,14 @@ const Goals = () => {
   // }
   const fetchStats = async () => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_APP_SERVERURL}/api/stats`,
-        {
-          headers: {
-            Authorization: `Bearer ${authToken.token}`,
-          },
-        }
-      );
-      const stat = response.data
-      const temp = data.map((value)=>{
-        return{
-          ...value,
-          // []
-        }
-      })
+      
     } catch (err) {
       console.log(err);
     }
   };
   useEffect(() => {
-    fetchGoals();
-    fetchStats();
+    fetchGoalsAndStats();
+    // fetchStats();
   }, []);
 
   const columns = [
@@ -163,8 +168,9 @@ const Goals = () => {
       flex: 1,
     },
     {
-        field: "achiveable",
-        type: "boolean",
+        field: "achievableOrNot",
+        headerName:'Achiveability',
+        type: "string",
         headerAlign: "left",
         align: "left",
         flex: 1,
