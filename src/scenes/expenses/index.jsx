@@ -336,11 +336,11 @@ const Expenses = () => {
         <ContainerStyles
           sx={{
             minWidth: { xs: "95vw", sm: "85vw", md: "75vw" },
-            minHeight: "50vh",
+            height: {xs:'90vh', md:'85vh', lg:"70vh"},
             justifyContent: "center",
             backgroundColor: "#141b2d",
             alignItems: "center",
-            justifyContent: "flex-start",
+            justifyContent: {xs:'space-evenly', lg:"center"},
             padding: { xs: "10px", sm: "20px", md: "50px" },
             borderRadius: "20px",
           }}
@@ -350,26 +350,29 @@ const Expenses = () => {
             onSubmit={handleExpenseSubmit}
             style={{
               width: "100%",
-              height: "55vh",
+              height: "100%",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              flexDirection: "column",
+              flexDirection: {xs:"column", lg:'row'},
             }}
           >
             <ContainerStyles
               sx={{
-                width: "80%",
+                
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: {xs:'center', lg:"space-between"},
                 flexDirection: { xs: "column", md: "row" },
+                flexWrap:'wrap',
+                minWidth: {xs:'95vw', md:"80%"},
               }}
             >
               <ContainerStyles
                 sx={{
                   justifyContent: "space-between",
-                  alignItems: "flex-start",
+                  alignItems: {xs:'center', lg:"flex-start"},
+                  // width:'100%'
                 }}
               >
                 <ContainerStyles
@@ -481,7 +484,7 @@ const Expenses = () => {
                       fontWeight: "500",
                     }}
                   >
-                    Enter your Expense frequency per year:
+                    Enter Expense frequency per year:
                   </Typography>
                   <FormSample
                     // req={true}
@@ -518,7 +521,8 @@ const Expenses = () => {
               <ContainerStyles
                 sx={{
                   justifyContent: "space-between",
-                  alignItems: "flex-start",
+                  alignItems: {xs:'center', lg:"flex-start"},
+                  // width:'100%'
                 }}
               >
                 <ContainerStyles
@@ -544,7 +548,7 @@ const Expenses = () => {
                     options={categories}
                     ref={ref0}
                     name="category"
-                    sx={{ width: "100%", margin: "0", zIndex: "10000" }}
+                    sx={{ width: "100%", margin: "0", zIndex: "10000", width:'25rem' }}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -574,7 +578,7 @@ const Expenses = () => {
                         sx={{
                           height: "2.5rem",
                           width: "100%",
-                          width: { xs: "100%", md: "80%" },
+                          width: { xs: "100%", md: "25rem" },
                           "& .MuiOutlinedInput-root": {
                             height: "2.5rem",
                             // backgroundColor: "transparent",
@@ -680,11 +684,11 @@ const Expenses = () => {
         <ContainerStyles
           sx={{
             minWidth: { xs: "95vw", sm: "85vw", md: "75vw" },
-            minHeight: "50vh",
-            justifyContent: "center",
+            height: {xs:'90vh', md:'80vh', lg:"50vh"},
+            justifyContent: {xs:'space-evenly', lg:"center"},
             backgroundColor: "#141b2d",
             alignItems: "center",
-            justifyContent: "flex-start",
+            // justifyContent: "flex-start",
             padding: { xs: "10px", sm: "20px", md: "50px" },
             borderRadius: "20px",
           }}
@@ -694,7 +698,7 @@ const Expenses = () => {
             onSubmit={handleIncomeSubmit}
             style={{
               width: "100%",
-              height: "45vh",
+              height:'100%',
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
@@ -703,23 +707,24 @@ const Expenses = () => {
           >
             <ContainerStyles
               sx={{
-                width: "80%",
                 display: "flex",
                 alignItems: "center",
-                justifyContent: "space-between",
+                justifyContent: {xs:'center', lg:'space-between'},
                 flexDirection: { xs: "column", md: "row" },
+                flexWrap:'wrap',
+                minWidth: {xs:'95vw', md:"80%"},
               }}
             >
               <ContainerStyles
                 sx={{
                   justifyContent: "space-between",
-                  alignItems: "flex-start",
+                  alignItems: {xs:'center', lg:"flex-start"},
                 }}
               >
                 <ContainerStyles
                   sx={{
-                    alignItems: "flex-start",
-                    justifyContent: "flex-start",
+                    alignItems: {xs:'center', lg:"flex-start"},
+                    justifyContent: {xs:'center', lg:"flex-start"},
                   }}
                 >
                   <Typography
@@ -765,7 +770,7 @@ const Expenses = () => {
                 </ContainerStyles>
                 <ContainerStyles
                   sx={{
-                    alignItems: "flex-start",
+                    alignItems: {xs:'center', lg:"flex-start"},
                     justifyContent: "flex-start",
                   }}
                 >
@@ -815,12 +820,14 @@ const Expenses = () => {
               <ContainerStyles
                 sx={{
                   justifyContent: "space-between",
-                  alignItems: "flex-start",
+                  alignItems: {xs:'center', lg:"flex-start"},
+
                 }}
               >
                 <ContainerStyles
                   sx={{
-                    alignItems: "flex-start",
+                    alignItems: {xs:'center', lg:"flex-start"},
+
                     justifyContent: "flex-start",
                   }}
                 >
