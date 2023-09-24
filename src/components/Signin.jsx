@@ -90,6 +90,7 @@ const Signin = ({ handleSignin, setSignIn, signin, isup, setIsup }) => {
             fontSize: "1rem",
             textDecoration: "underline",
             color: "white",
+            cursor:'pointer'
           }}
         >
           Or Sign up instead
@@ -97,9 +98,9 @@ const Signin = ({ handleSignin, setSignIn, signin, isup, setIsup }) => {
         <Button
           type="submit"
           sx={{
-            backgroundColor: "white",
+            backgroundColor: "#4cceac",
             "&:hover": {
-              backgroundColor: "white",
+              backgroundColor: "#4cceac",
             },
             textTransform: "none",
             color: "black",
