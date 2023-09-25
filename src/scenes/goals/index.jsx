@@ -59,8 +59,9 @@ const Goals = () => {
         priority: 0,
         completedAmount: 0,
       });
-      fetchGoals();
-      fetchStats();
+      // fetchGoals();
+      // fetchStats();
+      fetchGoalsAndStats();
       setOpen(false);
     } catch (err) {
       console.log(err);
