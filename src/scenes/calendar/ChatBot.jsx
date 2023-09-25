@@ -21,7 +21,7 @@ import { ContainerStyles } from "../../../palette";
 // import { useState } from "react";
 import FormSample from "../../components/FormSample";
 import axios from "axios";
-const Calendar = () => {
+const ChatBot = () => {
   const { setCookie, cookies } = useContext(ThemeContext);
   const authToken = cookies.AuthToken;
   const theme = useTheme();
@@ -196,4 +196,4 @@ const Calendar = () => {
     </Box>
   );
 };
-export default Calendar;
+export default ChatBot;
